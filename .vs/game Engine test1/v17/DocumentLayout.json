@@ -1,0 +1,173 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\render_pixels_kernel.cl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|solutionrelative:game Engine test1\\render_pixels_kernel.cl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\terminal.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|solutionrelative:game Engine test1\\src\\terminal.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\screen.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|solutionrelative:game Engine test1\\src\\screen.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\obj_reader.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|solutionrelative:game Engine test1\\src\\obj_reader.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|solutionrelative:game Engine test1\\src\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\lookup_tables.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|solutionrelative:game Engine test1\\src\\lookup_tables.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\GPU.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|solutionrelative:game Engine test1\\src\\GPU.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\engine.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|solutionrelative:game Engine test1\\src\\engine.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\calculations.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E2C5ADCE-BA23-4AAE-98C9-D0B299653C93}|game Engine test1\\game Engine test1.vcxproj|solutionrelative:game Engine test1\\src\\calculations.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 1197,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "render_pixels_kernel.cl",
+              "DocumentMoniker": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\render_pixels_kernel.cl",
+              "RelativeDocumentMoniker": "game Engine test1\\render_pixels_kernel.cl",
+              "ToolTip": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\render_pixels_kernel.cl",
+              "RelativeToolTip": "game Engine test1\\render_pixels_kernel.cl",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-07-14T19:43:47.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "terminal.c",
+              "DocumentMoniker": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\terminal.c",
+              "RelativeDocumentMoniker": "game Engine test1\\src\\terminal.c",
+              "ToolTip": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\terminal.c",
+              "RelativeToolTip": "game Engine test1\\src\\terminal.c",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-07-14T19:46:55.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "screen.c",
+              "DocumentMoniker": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\screen.c",
+              "RelativeDocumentMoniker": "game Engine test1\\src\\screen.c",
+              "ToolTip": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\screen.c",
+              "RelativeToolTip": "game Engine test1\\src\\screen.c",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-07-14T19:46:51.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "obj_reader.c",
+              "DocumentMoniker": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\obj_reader.c",
+              "RelativeDocumentMoniker": "game Engine test1\\src\\obj_reader.c",
+              "ToolTip": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\obj_reader.c",
+              "RelativeToolTip": "game Engine test1\\src\\obj_reader.c",
+              "ViewState": "AgIAAPkBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-07-14T19:46:47.564Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "main.c",
+              "DocumentMoniker": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\main.c",
+              "RelativeDocumentMoniker": "game Engine test1\\src\\main.c",
+              "ToolTip": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\main.c",
+              "RelativeToolTip": "game Engine test1\\src\\main.c",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-07-14T19:46:38.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "lookup_tables.c",
+              "DocumentMoniker": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\lookup_tables.c",
+              "RelativeDocumentMoniker": "game Engine test1\\src\\lookup_tables.c",
+              "ToolTip": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\lookup_tables.c",
+              "RelativeToolTip": "game Engine test1\\src\\lookup_tables.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-07-14T19:46:35.254Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GPU.c",
+              "DocumentMoniker": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\GPU.c",
+              "RelativeDocumentMoniker": "game Engine test1\\src\\GPU.c",
+              "ToolTip": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\GPU.c",
+              "RelativeToolTip": "game Engine test1\\src\\GPU.c",
+              "ViewState": "AgIAAPABAAAAAAAAAAAAAAUCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-07-14T19:46:21.991Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "engine.c",
+              "DocumentMoniker": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\engine.c",
+              "RelativeDocumentMoniker": "game Engine test1\\src\\engine.c",
+              "ToolTip": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\engine.c",
+              "RelativeToolTip": "game Engine test1\\src\\engine.c",
+              "ViewState": "AgIAADcBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-07-14T19:46:16.1Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "calculations.c",
+              "DocumentMoniker": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\calculations.c",
+              "RelativeDocumentMoniker": "game Engine test1\\src\\calculations.c",
+              "ToolTip": "C:\\Users\\aysch\\Documents\\Game\\Game-2.0\\game Engine test1\\src\\calculations.c",
+              "RelativeToolTip": "game Engine test1\\src\\calculations.c",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-07-14T19:46:08.947Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

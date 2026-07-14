@@ -1,8 +1,8 @@
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\calculations.c;C:\Users\aysch\source\repos\game Engine test1\game Engine test1\x64\Release\calculations.obj
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\engine.c;C:\Users\aysch\source\repos\game Engine test1\game Engine test1\x64\Release\engine.obj
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c;C:\Users\aysch\source\repos\game Engine test1\game Engine test1\x64\Release\GPU.obj
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\lookup_tables.c;C:\Users\aysch\source\repos\game Engine test1\game Engine test1\x64\Release\lookup_tables.obj
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\main.c;C:\Users\aysch\source\repos\game Engine test1\game Engine test1\x64\Release\main.obj
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c;C:\Users\aysch\source\repos\game Engine test1\game Engine test1\x64\Release\obj_reader.obj
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\screen.c;C:\Users\aysch\source\repos\game Engine test1\game Engine test1\x64\Release\screen.obj
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\terminal.c;C:\Users\aysch\source\repos\game Engine test1\game Engine test1\x64\Release\terminal.obj
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\calculations.c;C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\x64\Release\calculations.obj
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c;C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\x64\Release\engine.obj
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c;C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\x64\Release\GPU.obj
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\lookup_tables.c;C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\x64\Release\lookup_tables.obj
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\main.c;C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\x64\Release\main.obj
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c;C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\x64\Release\obj_reader.obj
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\screen.c;C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\x64\Release\screen.obj
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\terminal.c;C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\x64\Release\terminal.obj

@@ -1,14 +1,76 @@
-﻿  obj_reader.c
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(106,9): warning C4013: '_skip_till_breakline' undefined; assuming extern returning int
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(241,10): warning C4013: '_read_float_values' undefined; assuming extern returning int
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(301,9): warning C4013: '_read_vertexes' undefined; assuming extern returning int
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(345,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(423,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(429,11): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(447,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(448,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(457,56): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(476,11): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(411,13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\obj_reader.c(499,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
-  game Engine test1.vcxproj -> C:\Users\aysch\source\repos\game Engine test1\x64\Debug\game Engine test1.exe
+﻿  calculations.c
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\calculations.c(16,13): warning C4101: 'P': unreferenced local variable
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\calculations.c(58,18): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\calculations.c(61,18): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\calculations.c(127,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\calculations.c(128,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\calculations.c(129,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  engine.c
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(34,24): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(35,24): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(92,2): warning C4098: 'init_data': 'void' function returning a value
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(120,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(137,6): warning C4101: 'x_diff': unreferenced local variable
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(137,14): warning C4101: 'y_diff': unreferenced local variable
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(200,36): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(201,37): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(230,9): warning C4013: '_kbhit' undefined; assuming extern returning int
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(232,7): warning C4013: '_getch' undefined; assuming extern returning int
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(254,26): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(255,26): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(258,26): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(259,26): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(262,35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(263,35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(266,35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(267,35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(270,23): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(273,21): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(277,23): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\engine.c(279,21): warning C4305: '-=': truncation from 'double' to 'float'
+  GPU.c
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c(186,19): warning C4101: 'time_spend': unreferenced local variable
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c(433,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c(440,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c(444,44): warning C4013: 'strcmp' undefined; assuming extern returning int
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c(470,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c(471,10): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 3 has type 'size_t'
+      C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c(471,10):
+      consider using '%zd' in the format string
+  
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c(476,9): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'size_t'
+      C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\GPU.c(476,9):
+      consider using '%zd' in the format string
+  
+  cl_version.h: CL_TARGET_OPENCL_VERSION is not defined. Defaulting to 300 (OpenCL 3.0)
+  lookup_tables.c
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\lookup_tables.c(26,14): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\lookup_tables.c(30,14): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\lookup_tables.c(22,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  main.c
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\main.c(62,2): warning C4098: 'main': 'void' function returning a value
+  obj_reader.c
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(106,9): warning C4013: '_skip_till_breakline' undefined; assuming extern returning int
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(241,10): warning C4013: '_read_float_values' undefined; assuming extern returning int
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(301,9): warning C4013: '_read_vertexes' undefined; assuming extern returning int
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(345,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(423,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(429,11): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(447,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(448,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(457,56): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(476,11): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(411,13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\obj_reader.c(499,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+  screen.c
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\screen.c(24,2): warning C4013: 'system' undefined; assuming extern returning int
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\screen.c(45,20): warning C4047: 'function': 'char *' differs in levels of indirection from 'char (*)[160][512]'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\screen.c(45,20): warning C4024: 'set_screen_buffer': different types for formal and actual parameter 1
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\screen.c(50,34): warning C4047: 'function': 'char *' differs in levels of indirection from 'char (*)[160][512]'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\screen.c(50,34): warning C4024: 'terminal_print_buffer_to_screen': different types for formal and actual parameter 1
+  terminal.c
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\terminal.c(17,59): warning C4047: 'function': 'BOOL' differs in levels of indirection from 'void *'
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\terminal.c(17,59): warning C4024: 'SetCurrentConsoleFontEx': different types for formal and actual parameter 2
+  Generating Code...
+C:\Users\aysch\Documents\Game\Game-2.0\game Engine test1\src\lookup_tables.c(19,1): warning C4716: 'get_atan': must return a value
+  game Engine test1.vcxproj -> C:\Users\aysch\Documents\Game\Game-2.0\x64\Debug\game Engine test1.exe
