@@ -1,0 +1,289 @@
+
+
+/*
+
+int CheckIfAbove(Coordinate Player, Coordinate A, Coordinate B, Coordinate C) {
+
+	int slobe_ab_check;
+	int slobe_ap_check;
+
+
+	// Calc slobes for point A
+	rendered_vertexes[nr].diff_ab_x = rendered_vertexes[nr].B.x - rendered_vertexes[nr].A.x;
+	rendered_vertexes[nr].diff_ab_y = rendered_vertexes[nr].B.y - rendered_vertexes[nr].A.y;
+	rendered_vertexes[nr].diff_ac_x = rendered_vertexes[nr].C.x - rendered_vertexes[nr].A.x;
+	rendered_vertexes[nr].diff_ac_y = rendered_vertexes[nr].C.y - rendered_vertexes[nr].A.y;
+
+
+
+
+
+
+
+	if (rendered_vertexes[nr].diff_ab_x == 0) {
+		rendered_vertexes[nr].slobe_ab_check = true;
+	}
+	else {
+		rendered_vertexes[nr].slobe_ab_check = false;
+		rendered_vertexes[nr].slobe_ab = rendered_vertexes[nr].diff_ab_y / rendered_vertexes[nr].diff_ab_x;
+	}
+
+
+
+	if (rendered_vertexes[nr].diff_ac_x == 0) {
+		rendered_vertexes[nr].slobe_ac_check = true;
+	}
+	else {
+		rendered_vertexes[nr].slobe_ac_check = false;
+		rendered_vertexes[nr].slobe_ac = rendered_vertexes[nr].diff_ac_y / rendered_vertexes[nr].diff_ac_x;
+	}
+
+
+
+
+	//same dise of quadrant
+
+
+				// #1
+	if (temp_ptr_rendered_vertexes.slobe_ab_check & temp_ptr_rendered_pixels.slobe_ap_check) {
+		if (temp_ptr_rendered_vertexes.diff_ab_y >= 0 != temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+			continue;
+		}
+
+	}
+	else if (temp_ptr_rendered_vertexes.slobe_ab_check) {
+
+
+		if (temp_ptr_rendered_vertexes.diff_ab_y >= 0) {
+			if (temp_ptr_rendered_pixels.diff_ap_x >= 0) {
+				continue;
+			}
+		}
+		else {
+			if (temp_ptr_rendered_pixels.diff_ap_x <= 0) {
+				continue;
+			}
+		}
+
+
+
+	}
+	else if (temp_ptr_rendered_pixels.slobe_ap_check) {
+
+
+
+		if (temp_ptr_rendered_vertexes.diff_ab_x >= 0) {
+			if (temp_ptr_rendered_pixels.diff_ap_y <= 0) {
+				continue;
+			}
+		}
+		else {
+			if (temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+				continue;
+			}
+		}
+
+
+
+	}
+	else {
+
+		temp = (temp_ptr_rendered_pixels.diff_ap_x * temp_ptr_rendered_vertexes.diff_ab_x) >= 0;
+		if (!temp & (temp_ptr_rendered_vertexes.slobe_ab <= temp_ptr_rendered_pixels.slobe_ap)) {
+			continue;
+		}
+		if (temp & (temp_ptr_rendered_vertexes.slobe_ab >= temp_ptr_rendered_pixels.slobe_ap)) {
+			continue;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+	// #2
+	if (temp_ptr_rendered_vertexes.slobe_ac_check & temp_ptr_rendered_pixels.slobe_ap_check) {
+		if (temp_ptr_rendered_vertexes.diff_ac_y >= 0 != temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+			continue;
+		}
+
+	}
+	else if (temp_ptr_rendered_vertexes.slobe_ac_check) {
+
+
+		if (temp_ptr_rendered_vertexes.diff_ac_y >= 0) {
+			if (temp_ptr_rendered_pixels.diff_ap_x <= 0) {
+				continue;
+			}
+		}
+		else {
+			if (temp_ptr_rendered_pixels.diff_ap_x >= 0) {
+				continue;
+			}
+		}
+
+
+
+	}
+	else if (temp_ptr_rendered_pixels.slobe_ap_check) {
+
+
+
+		if (temp_ptr_rendered_vertexes.diff_ac_x >= 0) {
+			if (temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+				continue;
+			}
+		}
+		else {
+			if (temp_ptr_rendered_pixels.diff_ap_y <= 0) {
+				continue;
+			}
+		}
+
+
+
+	}
+	else {
+
+		temp = (temp_ptr_rendered_pixels.diff_ap_x * temp_ptr_rendered_vertexes.diff_ac_x) >= 0;
+		if (!temp & (temp_ptr_rendered_vertexes.slobe_ac >= temp_ptr_rendered_pixels.slobe_ap)) {
+			continue;
+		}
+		if (temp & (temp_ptr_rendered_vertexes.slobe_ac <= temp_ptr_rendered_pixels.slobe_ap)) {
+			continue;
+		}
+	}
+
+
+
+
+
+
+
+
+	// #3
+	if (temp_ptr_rendered_vertexes.slobe_bc_check & temp_ptr_rendered_pixels.slobe_bp_check) {
+		if (temp_ptr_rendered_vertexes.diff_bc_y >= 0 != temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+			continue;
+		}
+
+	}
+	else if (temp_ptr_rendered_vertexes.slobe_bc_check) {
+
+
+		if (temp_ptr_rendered_vertexes.diff_bc_y >= 0) {
+			if (temp_ptr_rendered_pixels.diff_bp_x >= 0) {
+				continue;
+			}
+		}
+		else {
+			if (temp_ptr_rendered_pixels.diff_bp_x <= 0) {
+				continue;
+			}
+		}
+
+
+
+	}
+	else if (temp_ptr_rendered_pixels.slobe_bp_check) {
+
+
+
+		if (temp_ptr_rendered_vertexes.diff_bc_x >= 0) {
+			if (temp_ptr_rendered_pixels.diff_bp_y <= 0) {
+				continue;
+			}
+		}
+		else {
+			if (temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+				continue;
+			}
+		}
+
+
+
+	}
+	else {
+
+		temp = (temp_ptr_rendered_pixels.diff_bp_x * temp_ptr_rendered_vertexes.diff_bc_x) > 0;
+		if (!temp & (temp_ptr_rendered_vertexes.slobe_bc <= temp_ptr_rendered_pixels.slobe_bp)) {
+			continue;
+		}
+		if (temp & (temp_ptr_rendered_vertexes.slobe_bc >= temp_ptr_rendered_pixels.slobe_bp)) {
+			continue;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+	// #4
+	if (temp_ptr_rendered_vertexes.slobe_ba_check & temp_ptr_rendered_pixels.slobe_bp_check) {
+		if (temp_ptr_rendered_vertexes.diff_ba_y >= 0 != temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+			continue;
+		}
+
+	}
+	else if (temp_ptr_rendered_vertexes.slobe_ba_check) {
+
+
+		if (temp_ptr_rendered_vertexes.diff_ba_y >= 0) {
+			if (temp_ptr_rendered_pixels.diff_bp_x <= 0) {
+				continue;
+			}
+		}
+		else {
+			if (temp_ptr_rendered_pixels.diff_bp_x >= 0) {
+				continue;
+			}
+		}
+
+
+
+	}
+	else if (temp_ptr_rendered_pixels.slobe_bp_check) {
+
+
+
+		if (temp_ptr_rendered_vertexes.diff_ba_x >= 0) {
+			if (temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+				continue;
+			}
+		}
+		else {
+			if (temp_ptr_rendered_pixels.diff_bp_y <= 0) {
+				continue;
+			}
+		}
+
+
+
+	}
+	else {
+
+		temp = (temp_ptr_rendered_pixels.diff_bp_x * temp_ptr_rendered_vertexes.diff_ba_x) > 0;
+		if (!temp & (temp_ptr_rendered_vertexes.slobe_ba >= temp_ptr_rendered_pixels.slobe_bp)) {
+			continue;
+		}
+		if (temp & (temp_ptr_rendered_vertexes.slobe_ba <= temp_ptr_rendered_pixels.slobe_bp)) {
+			continue;
+		}
+	}
+
+
+
+
+
+}
+*/

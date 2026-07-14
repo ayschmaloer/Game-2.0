@@ -1,0 +1,78 @@
+﻿  engine.c
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(488,2): warning C4013: 'load_obj_files' undefined; assuming extern returning int
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(491,2): warning C4098: 'init_data': 'void' function returning a value
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(494,20): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(500,20): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(733,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(737,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(762,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(766,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(776,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(780,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(887,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(891,30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(897,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(901,30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(906,26): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(906,46): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(912,27): warning C4554: '|': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(912,48): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(929,34): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(934,36): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(986,5): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1000,2): warning C4098: 'drieD_naar_tweeD': 'void' function returning a value
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(876,15): warning C4101: 'temp_angle': unreferenced local variable
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1017,36): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1018,37): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1044,9): warning C4013: '_kbhit' undefined; assuming extern returning int
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1046,7): warning C4013: '_getch' undefined; assuming extern returning int
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1049,32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1055,26): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1056,26): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1059,26): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1060,26): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1063,35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1064,35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1067,35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\engine.c(1068,35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  main.c
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\main.c(48,2): warning C4098: 'main': 'void' function returning a value
+  calculations.c
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(19,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(32,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(96,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(102,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(82,13): warning C4101: 'result': unreferenced local variable
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(85,8): warning C4101: 'angle2': unreferenced local variable
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(151,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(152,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(154,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(155,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(156,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\calculations.c(125,13): warning C4101: 'P': unreferenced local variable
+  obj_reader.c
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(31,30): warning C4028: formal parameter 1 different from declaration
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(106,9): warning C4013: '_skip_till_breakline' undefined; assuming extern returning int
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(235,10): warning C4013: '_read_float_values' undefined; assuming extern returning int
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(295,9): warning C4013: '_read_vertexes' undefined; assuming extern returning int
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(333,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(412,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(418,11): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(436,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(437,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(446,56): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(465,11): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(399,13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\obj_reader.c(488,20): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+  screen.c
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\screen.c(25,2): warning C4013: 'system' undefined; assuming extern returning int
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\screen.c(44,2): warning C4013: 'teken_scherm' undefined; assuming extern returning int
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\screen.c(46,20): warning C4047: 'function': 'char *' differs in levels of indirection from 'char (*)[150][450]'
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\screen.c(46,20): warning C4024: 'set_screen_buffer': different types for formal and actual parameter 1
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\screen.c(50,34): warning C4047: 'function': 'char *' differs in levels of indirection from 'char (*)[150][450]'
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\screen.c(50,34): warning C4024: 'terminal_print_buffer_to_screen': different types for formal and actual parameter 1
+  terminal.c
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\terminal.c(17,59): warning C4047: 'function': 'BOOL' differs in levels of indirection from 'void *'
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\terminal.c(17,59): warning C4024: 'SetCurrentConsoleFontEx': different types for formal and actual parameter 2
+  Generating Code...
+  game Engine test1.vcxproj -> C:\Users\aysch\source\repos\game Engine test1\Debug\game Engine test1.exe

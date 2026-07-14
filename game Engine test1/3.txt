@@ -1,0 +1,242 @@
+				//same dise of quadrant
+
+
+				// #1
+				if (temp_ptr_rendered_vertexes.slobe_ab_check & temp_ptr_rendered_pixels.slobe_ap_check) {
+					if (temp_ptr_rendered_vertexes.diff_ab_y >= 0 != temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+						continue;
+					}
+
+				}
+				else if (temp_ptr_rendered_vertexes.slobe_ab_check) {
+
+
+					if (temp_ptr_rendered_vertexes.diff_ab_y >= 0) {
+						if (temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_ap_y <= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else if (temp_ptr_rendered_pixels.slobe_ap_check) {
+
+
+
+					if (temp_ptr_rendered_vertexes.diff_ab_x >= 0) {
+						if (temp_ptr_rendered_pixels.diff_ap_y <= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else {
+
+					temp = (temp_ptr_rendered_pixels.diff_ap_x * temp_ptr_rendered_vertexes.diff_ab_x) >= 0;
+					if (!temp & (temp_ptr_rendered_vertexes.slobe_ab <= temp_ptr_rendered_pixels.slobe_ap)) {
+						continue;
+					}
+					if (temp & (temp_ptr_rendered_vertexes.slobe_ab >= temp_ptr_rendered_pixels.slobe_ap)) {
+						continue;
+					}
+				}
+
+
+				
+
+
+
+
+
+
+
+				// #2
+				if (temp_ptr_rendered_vertexes.slobe_ac_check & temp_ptr_rendered_pixels.slobe_ap_check) {
+					if (temp_ptr_rendered_vertexes.diff_ac_y >= 0 != temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+						continue;
+					}
+
+				}
+				else if (temp_ptr_rendered_vertexes.slobe_ac_check) {
+
+
+					if (temp_ptr_rendered_vertexes.diff_ac_y >= 0) {
+						if (temp_ptr_rendered_pixels.diff_ap_y <= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else if (temp_ptr_rendered_pixels.slobe_ap_check) {
+
+
+
+					if (temp_ptr_rendered_vertexes.diff_ac_x >= 0) {
+						if (temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_ap_y <= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else {
+
+					temp = (temp_ptr_rendered_pixels.diff_ap_x * temp_ptr_rendered_vertexes.diff_ac_x) >= 0;
+					if (!temp & (temp_ptr_rendered_vertexes.slobe_ac >= temp_ptr_rendered_pixels.slobe_ap)) {
+						continue;
+					}
+					if (temp & (temp_ptr_rendered_vertexes.slobe_ac <= temp_ptr_rendered_pixels.slobe_ap)) {
+						continue;
+					}
+				}
+
+
+
+
+
+
+
+
+				// #3
+				if (temp_ptr_rendered_vertexes.slobe_bc_check & temp_ptr_rendered_pixels.slobe_bp_check) {
+					if (temp_ptr_rendered_vertexes.diff_bc_y >= 0 != temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+						continue;
+					}
+
+				}
+				else if (temp_ptr_rendered_vertexes.slobe_bc_check) {
+
+
+					if (temp_ptr_rendered_vertexes.diff_bc_y >= 0) {
+						if (temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_bp_y <= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else if (temp_ptr_rendered_pixels.slobe_bp_check) {
+
+
+
+					if (temp_ptr_rendered_vertexes.diff_bc_x >= 0) {
+						if (temp_ptr_rendered_pixels.diff_bp_y <= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else {
+
+					temp = (temp_ptr_rendered_pixels.diff_bp_x * temp_ptr_rendered_vertexes.diff_bc_x) > 0;
+					if (!temp & (temp_ptr_rendered_vertexes.slobe_bc <= temp_ptr_rendered_pixels.slobe_bp)) {
+						continue;
+					}
+					if (temp & (temp_ptr_rendered_vertexes.slobe_bc >= temp_ptr_rendered_pixels.slobe_bp)) {
+						continue;
+					}
+				}
+
+
+
+
+
+
+
+
+
+
+				// #4
+				if (temp_ptr_rendered_vertexes.slobe_ba_check & temp_ptr_rendered_pixels.slobe_bp_check) {
+					if (temp_ptr_rendered_vertexes.diff_ba_y >= 0 != temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+						continue;
+					}
+
+				}
+				else if (temp_ptr_rendered_vertexes.slobe_ba_check) {
+
+
+					if (temp_ptr_rendered_vertexes.diff_ba_y >= 0) {
+						if (temp_ptr_rendered_pixels.diff_bp_y <= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else if (temp_ptr_rendered_pixels.slobe_bp_check) {
+
+
+
+					if (temp_ptr_rendered_vertexes.diff_ba_x >= 0) {
+						if (temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_bp_y <= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else {
+
+					temp = (temp_ptr_rendered_pixels.diff_bp_x * temp_ptr_rendered_vertexes.diff_ba_x) > 0;
+					if (!temp & (temp_ptr_rendered_vertexes.slobe_ba >= temp_ptr_rendered_pixels.slobe_bp)) {
+						continue;
+					}
+					if (temp & (temp_ptr_rendered_vertexes.slobe_ba <= temp_ptr_rendered_pixels.slobe_bp)) {
+						continue;
+					}
+				}
+
+
+

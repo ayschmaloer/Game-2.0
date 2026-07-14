@@ -1,0 +1,17 @@
+﻿  GPU.c
+  cl_version.h: CL_TARGET_OPENCL_VERSION is not defined. Defaulting to 300 (OpenCL 3.0)
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c(125,85): warning C4090: 'function': different 'volatile' qualifiers
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c(125,104): warning C4090: 'function': different 'volatile' qualifiers
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c(292,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c(299,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c(329,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c(330,10): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 3 has type 'size_t'
+      C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c(330,10):
+      consider using '%zd' in the format string
+  
+C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c(335,9): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'size_t'
+      C:\Users\aysch\source\repos\game Engine test1\game Engine test1\src\GPU.c(335,9):
+      consider using '%zd' in the format string
+  
+  LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+  game Engine test1.vcxproj -> C:\Users\aysch\source\repos\game Engine test1\x64\Release\game Engine test1.exe

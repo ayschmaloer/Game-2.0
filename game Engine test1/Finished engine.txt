@@ -1,0 +1,227 @@
+/*
+ *
+ *   calc_get_2d_point   te dertermain if it fall in frame or not
+ *
+ *	draw 2d space to determain which pixels hit he triangle
+ *	!!! curentlly its all xd !!!
+ *
+ *	now, or only the hitting triangles:
+ *	calc triangle norm
+ *	calc intersection points
+ *	get distance
+ *
+ */
+
+ 
+
+
+#include "engine.h"
+#include "math.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include <string.h>
+
+#include "lookup_tables.h"
+#include "calculations.h"
+#include "obj_reader.h"
+
+#include "GPU.h"
+
+
+char scale[] = "@MBHENR#KWXDFPQASUZbdehx8Gm&04LOVYkpq5Tagns69owz$CIu23Jcfry%1v7l+it[]{}?j|()=~!-/<>\"^_';,:`.";
+
+
+const float pov_x = PI / 2;
+const float pov_y = PI / 4;
+
+
+#define max_fortexes 8
+Vertex* vertexes;
+Rendered_Vertex* rendered_vertexes;
+float angle_x[screen_size_x];
+float angle_y[screen_size_y];
+
+
+int nr_faces = 0;
+
+
+
+Coordinate player_coordinates;
+float player_angle = 0;
+Pixel pixels_Buffer[1024 * 66];
+Pixel pixels_empty_buffer[1024 * 66] = { 0.0 , 0 };
+
+
+void render_vertexes();
+void render_pixels();
+void render_scherm();
+
+
+
+void init_data() {
+
+	player_coordinates.x = 0;
+	player_coordinates.y = 0;
+	player_coordinates.z = 5;  // 15;
+
+	player_angle = 0;
+
+
+	load_obj_files(&vertexes, &nr_faces);
+
+
+	calc_object_norms(vertexes, nr_faces);
+
+	rendered_vertexes = malloc(sizeof(Rendered_Vertex) * nr_faces);
+
+
+
+	test_gpu_init(nr_faces);
+
+
+	return 0;
+
+}
+
+
+void teken_scherm() {
+
+
+	//clear buffer
+	//memcpy(pixels_Buffer, pixels_empty_buffer, sizeof(pixels_Buffer));
+
+	render_vertexes();
+	//render_pixels();
+
+	render_scherm();
+
+
+
+}
+
+
+
+Player_coordinates player_data;
+
+
+void render_vertexes() {
+
+	player_data.angle = player_angle;
+	player_data.x = player_coordinates.x;
+	player_data.y = player_coordinates.y;
+	player_data.z = player_coordinates.z;
+	player_data.nr_faces = nr_faces;
+
+
+	gpu_write_vextors(nr_faces, vertexes, &player_data);
+
+	gpu_execute_program1(nr_faces);
+
+
+
+}
+
+
+
+void render_scherm() {
+
+
+	gpu_execute_program2(nr_faces);
+
+	gpu_read_pixels(pixels_Buffer);
+
+	return;
+
+}
+
+
+
+
+//float ray_angle1 = player_angle - 
+
+/// <summary>
+/// Set Graphics
+/// </summary>
+/// <param name="buffer"></param>
+/// <param name="max_x"></param>
+/// <param name="max_y"></param>
+void set_screen_buffer(char* buffer, int max_x, int max_y) {
+	float distance = 0;
+	for (int x = 0; x < screen_size_x & x < max_x; x++) {
+		for (int y = 0; y < screen_size_y & y < max_y; y++) {
+
+			if (pixels_Buffer[x + (((screen_size_y - 1) - y) * screen_size_x)].item_nr == 0) {
+				continue;
+			}
+
+			distance = pixels_Buffer[x + (((screen_size_y - 1) - y) * screen_size_x)].distance;
+			if (distance > sizeof(scale) - 1) {
+				distance = sizeof(scale) - 2;
+			}
+			*(buffer + x + (y * screen_size_x)) = scale[(int)distance];
+		}
+	}
+
+	return;
+}
+
+
+void check_input() {
+
+	float radiant;
+	float new_x = player_coordinates.x;
+	float new_y = player_coordinates.y;
+
+	float move_factor = 2;
+
+	char c = 0;
+
+	while (_kbhit())
+	{
+		c = _getch();
+	}
+
+	radiant = player_angle;
+
+
+	if (c > 0) {
+		switch (c) {
+		case 119:
+			new_x += sin(radiant) * move_factor;
+			new_y += cos(radiant) * move_factor;
+			break;
+		case 115:
+			new_x -= sin(radiant) * move_factor;
+			new_y -= cos(radiant) * move_factor;
+			break;
+		case 100:
+			new_x += sin(radiant + PI / 2) * move_factor;
+			new_y += cos(radiant + PI / 2) * move_factor;
+			break;
+		case 97:
+			new_x += sin(radiant - PI / 2) * move_factor;
+			new_y += cos(radiant - PI / 2) * move_factor;
+			break;
+		case 75:
+			player_angle -= PI / 10;
+
+			if (player_angle < -PI) {
+				player_angle += twoPI;
+			}
+			break;
+		case 77:
+			player_angle += PI / 10;
+			if (player_angle > PI) {
+				player_angle -= twoPI;
+			}
+			break;
+		default:
+			;;
+		}
+	}
+
+	player_coordinates.x = new_x;
+	player_coordinates.y = new_y;
+
+	return;
+}

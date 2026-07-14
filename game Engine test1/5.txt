@@ -1,0 +1,1800 @@
+/*
+ *
+ *   calc_get_2d_point   te dertermain if it fall in frame or not
+ *
+ *	draw 2d space to determain which pixels hit he triangle
+ *	!!! curentlly its all xd !!!
+ *
+ *	now, or only the hitting triangles:
+ *	calc triangle norm
+ *	calc intersection points
+ *	get distance
+ *
+ */
+
+
+
+
+#include "engine.h"
+#include "math.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include <string.h>
+
+#include "lookup_tables.h"
+#include "calculations.h"
+#include "obj_reader.h"
+
+
+
+char scale[] = "@MBHENR#KWXDFPQASUZbdehx8Gm&04LOVYkpq5Tagns69owz$CIu23Jcfry%1v7l+it[]{}?j|()=~!-/<>\"^_';,:`.";
+
+
+const float pov_x = PI / 2; 
+const float pov_y = PI / 4;
+
+typedef struct {
+	float y_value;
+	int item;
+}Pixel;
+
+
+
+#define max_fortexes 8
+Vertex* vertexes;
+Rendered_Vertex* rendered_vertexes;
+Rendered_Pixels rendered_pixels[screen_size_x * screen_size_y];
+float angle_x[screen_size_x];
+float angle_y[screen_size_y];
+
+
+int nr_faces = 0;
+
+
+
+Coordinate player_coordinates;
+float player_angle = 0;
+Pixel pixels_Buffer[screen_size_x * screen_size_y];
+Pixel pixels_empty_buffer[screen_size_x * screen_size_y] = { 0.0 , 0 };
+
+
+
+void render_vertexes();
+void render_pixels();
+void render_scherm();
+
+int func2(int xy, int nr);
+void func1(int nr, int x, int y, int xy);
+int func3(int nr, int x, int y, int xy);
+
+
+
+void init_data() {
+
+	player_coordinates.x = 0;
+	player_coordinates.y = 0;
+	player_coordinates.z = 5;  // 15;
+
+	player_angle = 0;
+
+
+	load_obj_files(&vertexes, &nr_faces);
+
+
+	calc_object_norms(vertexes, nr_faces);
+
+	rendered_vertexes = malloc(sizeof(Rendered_Vertex) * nr_faces);
+
+	return 0;
+
+
+
+
+
+}
+
+
+
+
+
+void teken_scherm() {
+
+
+	//clear buffer
+	memcpy(pixels_Buffer, pixels_empty_buffer, sizeof(pixels_Buffer));
+
+	render_vertexes();
+	//render_pixels();
+
+	render_scherm();
+
+
+
+}
+
+
+
+void render_vertexes() {
+	float dud_unused;
+
+
+	for (int nr = 0; nr < nr_faces; nr++) {
+
+
+		memcpy(&rendered_vertexes[nr].vertex, &vertexes[nr], sizeof(Vertex));
+
+
+		rendered_vertexes[nr].look_away = 0;
+		//rendered_vertexes[nr].vertex = vertexes[nr];
+
+
+
+	
+
+		calc_2d_point(rendered_vertexes[nr].vertex.a, player_coordinates, player_angle,
+			&dud_unused, &rendered_vertexes[nr].A.x, &rendered_vertexes[nr].A.y);
+
+		calc_2d_point(rendered_vertexes[nr].vertex.b, player_coordinates, player_angle,
+			&dud_unused, &rendered_vertexes[nr].B.x, &rendered_vertexes[nr].B.y);
+
+		calc_2d_point(rendered_vertexes[nr].vertex.c, player_coordinates, player_angle,
+			&dud_unused, &rendered_vertexes[nr].C.x, &rendered_vertexes[nr].C.y);
+
+
+		// if two are in the same pixel, object is flat, aka skip
+		rendered_vertexes[nr].look_away += rendered_vertexes[nr].A.x == rendered_vertexes[nr].B.x & rendered_vertexes[nr].A.y == rendered_vertexes[nr].B.y;
+		rendered_vertexes[nr].look_away += rendered_vertexes[nr].A.x == rendered_vertexes[nr].C.x & rendered_vertexes[nr].A.y == rendered_vertexes[nr].C.y;
+		rendered_vertexes[nr].look_away += rendered_vertexes[nr].C.x == rendered_vertexes[nr].B.x & rendered_vertexes[nr].C.y == rendered_vertexes[nr].B.y;
+
+		if (rendered_vertexes[nr].look_away) continue;
+
+
+
+		//check if the angles crosses the - and + Pi line
+
+		//Calc Quadrant III and IV cross
+		//int quadrantA = rendered_vertexes[nr].A.x / PI;
+		//int quadrantB = (rendered_vertexes[nr].vertex.b.y < 0) << 1 | (rendered_vertexes[nr].vertex.b.x < 0 ^ (rendered_vertexes[nr].vertex.b.y < 0));
+		//int quadrantC = (rendered_vertexes[nr].vertex.c.y < 0) << 1 | (rendered_vertexes[nr].vertex.c.x < 0 ^ (rendered_vertexes[nr].vertex.c.y < 0));
+
+		// !!!! Obly X axis, dont forget  Y axis.........!!!!!!!!!
+
+
+
+
+		if ((fabs(rendered_vertexes[nr].A.x - rendered_vertexes[nr].B.x) > PI) ||
+			(fabs(rendered_vertexes[nr].A.x - rendered_vertexes[nr].C.x) > PI) ||
+			(fabs(rendered_vertexes[nr].B.x - rendered_vertexes[nr].C.x) > PI)) 
+		{
+
+
+
+			//Check closest to middle of screen.
+			//A Closest
+			if (fabs(rendered_vertexes[nr].A.x) <= fabs(rendered_vertexes[nr].B.x) && fabs(rendered_vertexes[nr].A.x) <= fabs(rendered_vertexes[nr].C.x)) 
+			{
+
+
+				if (rendered_vertexes[nr].A.x >= 0 && rendered_vertexes[nr].B.x < 0) {
+					rendered_vertexes[nr].B.x += twoPI;
+				}
+
+				if (rendered_vertexes[nr].A.x <= 0 && rendered_vertexes[nr].B.x > 0) {
+					rendered_vertexes[nr].B.x -= twoPI;
+				}
+
+
+				if (rendered_vertexes[nr].A.x >= 0 && rendered_vertexes[nr].C.x < 0) {
+					rendered_vertexes[nr].C.x += twoPI;
+				}
+
+				if (rendered_vertexes[nr].A.x <= 0 && rendered_vertexes[nr].C.x > 0) {
+					rendered_vertexes[nr].C.x -= twoPI;
+				}
+
+
+			}
+			//B closest
+			else if (fabs(rendered_vertexes[nr].B.x) <= fabs(rendered_vertexes[nr].C.x)) {
+
+
+				if (rendered_vertexes[nr].B.x >= 0 && rendered_vertexes[nr].A.x < 0) {
+					rendered_vertexes[nr].A.x += twoPI;
+				}
+
+				if (rendered_vertexes[nr].B.x <= 0 && rendered_vertexes[nr].A.x > 0) {
+					rendered_vertexes[nr].A.x -= twoPI;
+				}
+
+
+				if (rendered_vertexes[nr].B.x >= 0 && rendered_vertexes[nr].C.x < 0) {
+					rendered_vertexes[nr].C.x += twoPI;
+				}
+
+				if (rendered_vertexes[nr].B.x <= 0 && rendered_vertexes[nr].C.x > 0) {
+					rendered_vertexes[nr].C.x -= twoPI;
+				}
+
+
+			}
+			//C closest
+			else {
+
+
+
+				if (rendered_vertexes[nr].C.x >= 0 && rendered_vertexes[nr].B.x < 0) {
+					rendered_vertexes[nr].B.x += twoPI;
+				}
+
+				if (rendered_vertexes[nr].C.x <= 0 && rendered_vertexes[nr].B.x > 0) {
+					rendered_vertexes[nr].B.x -= twoPI;
+				}
+
+
+				if (rendered_vertexes[nr].C.x >= 0 && rendered_vertexes[nr].A.x < 0) {
+					rendered_vertexes[nr].A.x += twoPI;
+				}
+
+				if (rendered_vertexes[nr].C.x <= 0 && rendered_vertexes[nr].A.x > 0) {
+					rendered_vertexes[nr].A.x -= twoPI;
+				}
+
+
+			}
+
+
+
+		}
+		
+
+		/*
+
+
+		bool leftorright = 0;
+
+		double tmpAx, tmpAy, tmpBx, tmpBy, tmpCx, tmpCy = 0.0;
+
+
+
+		tmpAx = rendered_vertexes[nr].A.x;
+		tmpBx = rendered_vertexes[nr].B.x;
+		tmpCx = rendered_vertexes[nr].C.x;
+
+		if (fabs(tmpAx) <= fabs(tmpBx) && fabs(tmpAx) <= fabs(tmpCx)) {
+
+		}
+		else if (fabs(tmpBx) <= fabs(tmpCx)) {
+
+		}
+		else
+		{
+
+		}
+
+
+
+
+		if (fabs(tmpAx - tmpBx) > PI
+			fabs(tmpAx - tmpCx) > PI
+			fabs(rendered_vertexes[nr].A.x - rendered_vertexes[nr].B.x) > PI) {
+
+
+		}
+
+
+
+			if (fabs(rendered_vertexes[nr].A.x) > fabs(rendered_vertexes[nr].B.x) ) {
+
+				if (leftorright) {
+					tmpAx = rendered_vertexes[nr].A.x + twoPI;
+
+				}
+				else
+				{
+					tmpAx = rendered_vertexes[nr].A.x - twoPI;
+				}
+				
+
+			}
+			else
+			{
+
+				if (leftorright) {
+					tmpBx = rendered_vertexes[nr].B.x + twoPI;
+				}
+				else
+				{
+					tmpBx = rendered_vertexes[nr].B.x - twoPI;
+				}
+			}
+
+		}
+
+		
+
+		if (fabs(rendered_vertexes[nr].A.x - rendered_vertexes[nr].C.x) > PI) {
+			if (fabs(rendered_vertexes[nr].A.x) > fabs(rendered_vertexes[nr].C.x)) {
+
+				if (leftorright) {
+					tmpAx = rendered_vertexes[nr].A.x + twoPI;
+				}
+				else
+				{
+					tmpAx = rendered_vertexes[nr].A.x - twoPI;
+				}
+
+
+			}
+			else
+			{
+
+				if (leftorright) {
+					tmpCx = rendered_vertexes[nr].C.x + twoPI;
+				}
+				else
+				{
+					tmpCx = rendered_vertexes[nr].C.x - twoPI;
+				}
+			}
+
+		}
+
+
+		if (fabs(rendered_vertexes[nr].C.x - rendered_vertexes[nr].B.x) > PI) {
+			if (fabs(rendered_vertexes[nr].C.x) > fabs(rendered_vertexes[nr].B.x)) {
+
+				if (leftorright) {
+					tmpCx = rendered_vertexes[nr].C.x + twoPI;
+				}
+				else
+				{
+					tmpCx = rendered_vertexes[nr].C.x - twoPI;
+				}
+
+
+			}
+			else
+			{
+
+				if (leftorright) {
+					tmpBx = rendered_vertexes[nr].B.x + twoPI;
+				}
+				else
+				{
+					tmpBx = rendered_vertexes[nr].B.x - twoPI;
+				}
+			}
+
+		}
+
+		rendered_vertexes[nr].A.x = tmpAx;
+		rendered_vertexes[nr].B.x = tmpBx;
+		rendered_vertexes[nr].C.x = tmpCx;
+
+		*/
+
+		// Y coordinates as well
+		/*
+		if (fabs(rendered_vertexes[nr].A.y - rendered_vertexes[nr].B.y) > PI) {
+			if (fabs(rendered_vertexes[nr].A.y) > fabs(rendered_vertexes[nr].B.y)) {
+
+				if (rendered_vertexes[nr].A.y > 0.0) {
+					rendered_vertexes[nr].A.y -= twoPI;
+				}
+				else
+				{
+					rendered_vertexes[nr].A.y += twoPI;
+				}
+
+
+			}
+			else
+			{
+
+				if (rendered_vertexes[nr].B.y > 0.0) {
+					rendered_vertexes[nr].B.y -= twoPI;
+				}
+				else
+				{
+					rendered_vertexes[nr].B.y += twoPI;
+				}
+			}
+
+		}
+
+		if (fabs(rendered_vertexes[nr].A.y - rendered_vertexes[nr].C.y) > PI) {
+			if (fabs(rendered_vertexes[nr].A.y) > fabs(rendered_vertexes[nr].C.y)) {
+
+				if (rendered_vertexes[nr].A.y > 0.0) {
+					rendered_vertexes[nr].A.y -= twoPI;
+				}
+				else
+				{
+					rendered_vertexes[nr].A.y += twoPI;
+				}
+
+
+			}
+			else
+			{
+
+				if (rendered_vertexes[nr].C.y > 0.0) {
+					rendered_vertexes[nr].C.y -= twoPI;
+				}
+				else
+				{
+					rendered_vertexes[nr].C.y += twoPI;
+				}
+			}
+
+		}
+
+		if (fabs(rendered_vertexes[nr].C.y - rendered_vertexes[nr].B.y) > PI) {
+			if (fabs(rendered_vertexes[nr].C.y) > fabs(rendered_vertexes[nr].B.y)) {
+
+				if (rendered_vertexes[nr].C.y > 0.0) {
+					rendered_vertexes[nr].C.y -= twoPI;
+				}
+				else
+				{
+					rendered_vertexes[nr].C.y += twoPI;
+				}
+
+
+			}
+			else
+			{
+
+				if (rendered_vertexes[nr].B.y > 0.0) {
+					rendered_vertexes[nr].B.y -= twoPI;
+				}
+				else
+				{
+					rendered_vertexes[nr].B.y += twoPI;
+				}
+			}
+
+		}
+		*/
+
+
+
+
+
+
+
+
+
+
+
+		// Calc slobes for point A
+		rendered_vertexes[nr].diff_ab_x = rendered_vertexes[nr].B.x - rendered_vertexes[nr].A.x;
+		rendered_vertexes[nr].diff_ab_y = rendered_vertexes[nr].B.y - rendered_vertexes[nr].A.y;
+		rendered_vertexes[nr].diff_ac_x = rendered_vertexes[nr].C.x - rendered_vertexes[nr].A.x;
+		rendered_vertexes[nr].diff_ac_y = rendered_vertexes[nr].C.y - rendered_vertexes[nr].A.y;
+
+
+
+		if (rendered_vertexes[nr].diff_ab_x == 0) {
+			rendered_vertexes[nr].slobe_ab_check = true;
+		}
+		else {
+			rendered_vertexes[nr].slobe_ab_check = false;
+			rendered_vertexes[nr].slobe_ab = rendered_vertexes[nr].diff_ab_y / rendered_vertexes[nr].diff_ab_x;
+		}
+
+
+
+		if (rendered_vertexes[nr].diff_ac_x == 0) {
+			rendered_vertexes[nr].slobe_ac_check = true;
+		}
+		else {
+			rendered_vertexes[nr].slobe_ac_check = false;
+			rendered_vertexes[nr].slobe_ac = rendered_vertexes[nr].diff_ac_y / rendered_vertexes[nr].diff_ac_x;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		if (rendered_vertexes[nr].diff_ab_x == 0 | rendered_vertexes[nr].diff_ac_x == 0) {
+
+
+
+			//on the same line
+			rendered_vertexes[nr].look_away = rendered_vertexes[nr].diff_ab_x == rendered_vertexes[nr].diff_ac_x;
+			if (rendered_vertexes[nr].look_away) continue;
+
+
+
+			if (rendered_vertexes[nr].diff_ab_x == 0) {
+
+				//kijkt weg
+
+				rendered_vertexes[nr].look_away = rendered_vertexes[nr].diff_ac_x > 0 & (rendered_vertexes[nr].diff_ab_y >= 0);
+				if (rendered_vertexes[nr].look_away) continue;
+				
+				rendered_vertexes[nr].look_away = rendered_vertexes[nr].diff_ac_x < 0 & (rendered_vertexes[nr].diff_ab_y < 0);
+				if (rendered_vertexes[nr].look_away) continue;
+				
+
+
+			}
+			if (rendered_vertexes[nr].diff_ac_x == 0) {
+
+				//kijkt weg
+
+				rendered_vertexes[nr].look_away = rendered_vertexes[nr].diff_ab_x < 0 & (rendered_vertexes[nr].diff_ac_y >= 0);
+				if (rendered_vertexes[nr].look_away) continue;
+
+				rendered_vertexes[nr].look_away = rendered_vertexes[nr].diff_ab_x > 0 & (rendered_vertexes[nr].diff_ac_y < 0);
+				if (rendered_vertexes[nr].look_away) continue;
+
+			}
+
+
+
+
+
+
+		}
+		else
+		{
+
+
+
+
+
+			
+
+			// Looking away, object is flat, aka skip
+			if ((rendered_vertexes[nr].diff_ab_x * rendered_vertexes[nr].diff_ac_x) >= 0) { // iff both the same quadrant/half
+
+				// all on the same line, object is flat, aka skip
+				rendered_vertexes[nr].look_away = rendered_vertexes[nr].slobe_ab == rendered_vertexes[nr].slobe_ac;
+				if (rendered_vertexes[nr].look_away) continue;
+
+
+				//kijkt weg
+				rendered_vertexes[nr].look_away = rendered_vertexes[nr].slobe_ab > rendered_vertexes[nr].slobe_ac;
+				if (rendered_vertexes[nr].look_away) continue;
+			}
+			else { /// iff differ quadrant
+
+				//kijkt weg
+				rendered_vertexes[nr].look_away = (rendered_vertexes[nr].slobe_ab < rendered_vertexes[nr].slobe_ac);
+				if (rendered_vertexes[nr].look_away) continue;
+			}
+
+
+		}
+
+
+
+
+
+
+
+
+
+		// Calc slobes for point B
+		rendered_vertexes[nr].diff_bc_x = rendered_vertexes[nr].C.x - rendered_vertexes[nr].B.x;
+		rendered_vertexes[nr].diff_bc_y = rendered_vertexes[nr].C.y - rendered_vertexes[nr].B.y;
+		rendered_vertexes[nr].diff_ba_x = rendered_vertexes[nr].A.x - rendered_vertexes[nr].B.x;
+		rendered_vertexes[nr].diff_ba_y = rendered_vertexes[nr].A.y - rendered_vertexes[nr].B.y;
+
+
+
+
+		if (rendered_vertexes[nr].diff_bc_x == 0) {
+			rendered_vertexes[nr].slobe_bc_check = true;
+		}
+		else {
+			rendered_vertexes[nr].slobe_bc_check = false;
+			rendered_vertexes[nr].slobe_bc = rendered_vertexes[nr].diff_bc_y / rendered_vertexes[nr].diff_bc_x;
+		}
+
+
+
+		if (rendered_vertexes[nr].diff_ba_x == 0) {
+			rendered_vertexes[nr].slobe_ba_check = true;
+		}
+		else {
+			rendered_vertexes[nr].slobe_ba_check = false;
+			rendered_vertexes[nr].slobe_ba = rendered_vertexes[nr].diff_ba_y / rendered_vertexes[nr].diff_ba_x;
+		}
+
+
+
+
+		if ((rendered_vertexes[nr].diff_ab_x * rendered_vertexes[nr].diff_ac_x) >= 0) { // iff both the same quadrant
+			// all on the same line, object is flat, aka skip
+			rendered_vertexes[nr].look_away = rendered_vertexes[nr].slobe_bc == rendered_vertexes[nr].slobe_ba;
+			if (rendered_vertexes[nr].look_away) continue;
+
+		}
+
+
+	}
+	return;
+}
+
+/*
+void render_pixels() {
+	int nr = 0;
+
+
+
+	for (int y = 0; y < screen_size_y; y++) {
+		angle_y[y] = (((float)y / screen_size_y) - 0.5) * pov_y;
+	}
+
+
+	for (int x = 0; x < screen_size_x; x++) {
+		angle_x[x] = (((float)x / screen_size_x) - 0.5) * pov_x;
+	}
+
+
+
+
+
+
+
+	for (int y = 0; y < screen_size_y; y++) {
+		for (int x = 0; x < screen_size_x; x++) {
+
+			rendered_pixels[nr].diff_ap_x = angle_x[x] - rendered_vertexes[nr].A.x;
+			rendered_pixels[nr].diff_ap_y = angle_y[y] - rendered_vertexes[nr].A.y;
+
+			rendered_pixels[nr].diff_bp_x = angle_x[x] - rendered_vertexes[nr].B.x;
+			rendered_pixels[nr].diff_bp_y = angle_y[y] - rendered_vertexes[nr].B.y;
+
+			rendered_pixels[nr].slobe_ap = rendered_pixels[nr].diff_ap_y / rendered_pixels[nr].diff_ap_x;
+			rendered_pixels[nr].slobe_bp = rendered_pixels[nr].diff_bp_y / rendered_pixels[nr].diff_bp_x;
+
+			nr++;
+		}
+	}
+
+}
+*/
+
+
+
+void render_scherm() {
+
+	Rendered_Pixels temp_ptr_rendered_pixels;
+	Rendered_Vertex temp_ptr_rendered_vertexes;
+	Coordinate Phit;
+	float Pdistance;
+	int temp = 0;
+
+
+	for (int y = 0; y < screen_size_y; y++) {
+		angle_y[y] = (((float)y / screen_size_y) - 0.5) * pov_y;
+	}
+
+
+	for (int x = 0; x < screen_size_x; x++) {
+		angle_x[x] = (((float)x / screen_size_x) - 0.5) * pov_x;
+	}
+
+
+	for (int nr = 0; nr < nr_faces; nr++) {
+
+		temp_ptr_rendered_vertexes = rendered_vertexes[nr];
+
+		if (temp_ptr_rendered_vertexes.look_away) {
+			continue;
+		}
+
+		for (int y = 0; y < screen_size_y; y++) {
+			for (int x = 0; x < screen_size_x; x++) {
+
+				int xy = x + (y * screen_size_x); 
+
+				temp_ptr_rendered_pixels = rendered_pixels[xy];
+
+				temp_ptr_rendered_pixels.diff_ap_x = angle_x[x] - temp_ptr_rendered_vertexes.A.x;
+				temp_ptr_rendered_pixels.diff_ap_y = angle_y[y] - temp_ptr_rendered_vertexes.A.y;
+
+				temp_ptr_rendered_pixels.diff_bp_x = angle_x[x] - temp_ptr_rendered_vertexes.B.x;
+				temp_ptr_rendered_pixels.diff_bp_y = angle_y[y] - temp_ptr_rendered_vertexes.B.y;
+
+				//temp_ptr_rendered_pixels.slobe_ap = temp_ptr_rendered_pixels.diff_ap_y / temp_ptr_rendered_pixels.diff_ap_x;
+				//temp_ptr_rendered_pixels.slobe_bp = temp_ptr_rendered_pixels.diff_bp_y / temp_ptr_rendered_pixels.diff_bp_x;
+
+
+
+
+				if (temp_ptr_rendered_pixels.diff_ap_x == 0) {
+					temp_ptr_rendered_pixels.slobe_ap_check = true;
+				}
+				else {
+					temp_ptr_rendered_pixels.slobe_ap = temp_ptr_rendered_pixels.diff_ap_y / temp_ptr_rendered_pixels.diff_ap_x;
+				}
+
+
+
+				if (temp_ptr_rendered_pixels.diff_bp_x == 0) {
+					temp_ptr_rendered_pixels.slobe_bp_check = true;
+				}
+				else {
+					temp_ptr_rendered_pixels.slobe_bp = temp_ptr_rendered_pixels.diff_bp_y / temp_ptr_rendered_pixels.diff_bp_x;
+				}
+
+
+
+
+
+		
+
+				//same dise of quadrant
+
+
+				// #1
+				if (temp_ptr_rendered_vertexes.slobe_ab_check & temp_ptr_rendered_pixels.slobe_ap_check) {
+					if (temp_ptr_rendered_vertexes.diff_ab_y >= 0 != temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+						continue;
+					}
+
+				}
+				else if (temp_ptr_rendered_vertexes.slobe_ab_check) {
+
+
+					if (temp_ptr_rendered_vertexes.diff_ab_y >= 0) {
+						if (temp_ptr_rendered_pixels.diff_ap_x >= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_ap_x <= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else if (temp_ptr_rendered_pixels.slobe_ap_check) {
+
+
+
+					if (temp_ptr_rendered_vertexes.diff_ab_x >= 0) {
+						if (temp_ptr_rendered_pixels.diff_ap_y <= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else {
+
+					temp = (temp_ptr_rendered_pixels.diff_ap_x * temp_ptr_rendered_vertexes.diff_ab_x) >= 0;
+					if (!temp & (temp_ptr_rendered_vertexes.slobe_ab <= temp_ptr_rendered_pixels.slobe_ap)) {
+						continue;
+					}
+					if (temp & (temp_ptr_rendered_vertexes.slobe_ab >= temp_ptr_rendered_pixels.slobe_ap)) {
+						continue;
+					}
+				}
+
+
+				
+
+
+
+
+
+
+
+				// #2
+				if (temp_ptr_rendered_vertexes.slobe_ac_check & temp_ptr_rendered_pixels.slobe_ap_check) {
+					if (temp_ptr_rendered_vertexes.diff_ac_y >= 0 != temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+						continue;
+					}
+
+				}
+				else if (temp_ptr_rendered_vertexes.slobe_ac_check) {
+
+
+					if (temp_ptr_rendered_vertexes.diff_ac_y >= 0) {
+						if (temp_ptr_rendered_pixels.diff_ap_x <= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_ap_x >= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else if (temp_ptr_rendered_pixels.slobe_ap_check) {
+
+
+
+					if (temp_ptr_rendered_vertexes.diff_ac_x >= 0) {
+						if (temp_ptr_rendered_pixels.diff_ap_y >= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_ap_y <= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else {
+
+					temp = (temp_ptr_rendered_pixels.diff_ap_x * temp_ptr_rendered_vertexes.diff_ac_x) >= 0;
+					if (!temp & (temp_ptr_rendered_vertexes.slobe_ac >= temp_ptr_rendered_pixels.slobe_ap)) {
+						continue;
+					}
+					if (temp & (temp_ptr_rendered_vertexes.slobe_ac <= temp_ptr_rendered_pixels.slobe_ap)) {
+						continue;
+					}
+				}
+
+
+
+
+
+
+
+
+				// #3
+				if (temp_ptr_rendered_vertexes.slobe_bc_check & temp_ptr_rendered_pixels.slobe_bp_check) {
+					if (temp_ptr_rendered_vertexes.diff_bc_y >= 0 != temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+						continue;
+					}
+
+				}
+				else if (temp_ptr_rendered_vertexes.slobe_bc_check) {
+
+
+					if (temp_ptr_rendered_vertexes.diff_bc_y >= 0) {
+						if (temp_ptr_rendered_pixels.diff_bp_x >= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_bp_x <= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else if (temp_ptr_rendered_pixels.slobe_bp_check) {
+
+
+
+					if (temp_ptr_rendered_vertexes.diff_bc_x >= 0) {
+						if (temp_ptr_rendered_pixels.diff_bp_y <= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else {
+
+					temp = (temp_ptr_rendered_pixels.diff_bp_x * temp_ptr_rendered_vertexes.diff_bc_x) > 0;
+					if (!temp & (temp_ptr_rendered_vertexes.slobe_bc <= temp_ptr_rendered_pixels.slobe_bp)) {
+						continue;
+					}
+					if (temp & (temp_ptr_rendered_vertexes.slobe_bc >= temp_ptr_rendered_pixels.slobe_bp)) {
+						continue;
+					}
+				}
+
+
+
+
+
+
+
+
+
+
+				// #4
+				if (temp_ptr_rendered_vertexes.slobe_ba_check & temp_ptr_rendered_pixels.slobe_bp_check) {
+					if (temp_ptr_rendered_vertexes.diff_ba_y >= 0 != temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+						continue;
+					}
+
+				}
+				else if (temp_ptr_rendered_vertexes.slobe_ba_check) {
+
+
+					if (temp_ptr_rendered_vertexes.diff_ba_y >= 0) {
+						if (temp_ptr_rendered_pixels.diff_bp_x <= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_bp_x >= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else if (temp_ptr_rendered_pixels.slobe_bp_check) {
+
+
+
+					if (temp_ptr_rendered_vertexes.diff_ba_x >= 0) {
+						if (temp_ptr_rendered_pixels.diff_bp_y >= 0) {
+							continue;
+						}
+					}
+					else {
+						if (temp_ptr_rendered_pixels.diff_bp_y <= 0) {
+							continue;
+						}
+					}
+
+
+
+				}
+				else {
+
+					temp = (temp_ptr_rendered_pixels.diff_bp_x * temp_ptr_rendered_vertexes.diff_ba_x) > 0;
+					if (!temp & (temp_ptr_rendered_vertexes.slobe_ba >= temp_ptr_rendered_pixels.slobe_bp)) {
+						continue;
+					}
+					if (temp & (temp_ptr_rendered_vertexes.slobe_ba <= temp_ptr_rendered_pixels.slobe_bp)) {
+						continue;
+					}
+				}
+
+
+
+
+
+
+
+
+				/*
+				temp = (temp_ptr_rendered_pixels.diff_ap_x * temp_ptr_rendered_vertexes.diff_ab_x) >= 0;
+				if (!temp & (temp_ptr_rendered_vertexes.slobe_ab <= temp_ptr_rendered_pixels.slobe_ap)) {
+					continue;
+				}
+				if (temp & (temp_ptr_rendered_vertexes.slobe_ab >= temp_ptr_rendered_pixels.slobe_ap)) {
+					continue;
+				}
+				temp = (temp_ptr_rendered_pixels.diff_ap_x * temp_ptr_rendered_vertexes.diff_ac_x) >= 0;
+				if (!temp & (temp_ptr_rendered_vertexes.slobe_ac >= temp_ptr_rendered_pixels.slobe_ap)) {
+					continue;
+				}
+				if (temp & (temp_ptr_rendered_vertexes.slobe_ac <= temp_ptr_rendered_pixels.slobe_ap)) {
+					continue;
+				}
+
+
+				temp = (temp_ptr_rendered_pixels.diff_bp_x * temp_ptr_rendered_vertexes.diff_bc_x) > 0;
+				if (!temp & (temp_ptr_rendered_vertexes.slobe_bc <= temp_ptr_rendered_pixels.slobe_bp)) {
+					continue;
+				}
+				if (temp & (temp_ptr_rendered_vertexes.slobe_bc >= temp_ptr_rendered_pixels.slobe_bp)) {
+					continue;
+				}
+				temp = (temp_ptr_rendered_pixels.diff_bp_x * temp_ptr_rendered_vertexes.diff_ba_x) > 0;
+				if (!temp & (temp_ptr_rendered_vertexes.slobe_ba >= temp_ptr_rendered_pixels.slobe_bp)) {
+					continue;
+				}
+				if (temp & (temp_ptr_rendered_vertexes.slobe_ba <= temp_ptr_rendered_pixels.slobe_bp)) {
+					continue;
+				}
+				*/
+
+
+
+				if (calc_plane(temp_ptr_rendered_vertexes.vertex.a, temp_ptr_rendered_vertexes.vertex.b, temp_ptr_rendered_vertexes.vertex.c,
+					temp_ptr_rendered_vertexes.vertex.Norm, player_coordinates, angle_x[x] + player_angle, angle_y[y], &Phit, &Pdistance)) {
+					continue;
+				}
+
+
+				if (Pdistance > pixels_Buffer[xy].y_value
+					& pixels_Buffer[xy].item != 0)
+				{
+					continue;
+				}
+
+				pixels_Buffer[xy].item = nr + 1;
+				pixels_Buffer[xy].y_value = Pdistance;
+
+
+
+
+
+
+
+				////func1(nr, x, y, xy);
+
+
+				////if (func2(xy, nr)) continue;
+				///if (func3(nr, x, y, xy)) continue;
+				//angle_x[x] += player_angle;
+
+
+
+
+
+			}
+		}
+	}
+
+	return;
+
+}
+
+
+
+
+
+
+
+
+
+int func3(int nr, int x, int y, int xy) {
+
+
+	Coordinate Phit;
+	float Pdistance;
+
+	if (calc_plane(rendered_vertexes[nr].vertex.a, rendered_vertexes[nr].vertex.b, rendered_vertexes[nr].vertex.c,
+		rendered_vertexes[nr].vertex.Norm, player_coordinates, angle_x[x] + player_angle, angle_y[y], &Phit, &Pdistance)) {
+		return 1;//continue;
+	}
+
+
+	if (Pdistance > pixels_Buffer[xy].y_value
+		& pixels_Buffer[xy].item != 0)
+	{
+		return 1;//continue;
+	}
+
+	pixels_Buffer[xy].item = nr + 1;
+	pixels_Buffer[xy].y_value = Pdistance;
+
+
+	return 0;
+
+}
+
+
+void func1(int nr, int x, int y, int xy) {
+	float diff_ap_y;
+	float diff_bp_y;
+
+	rendered_pixels[xy].diff_ap_x = angle_x[x] - rendered_vertexes[nr].A.x;
+	diff_ap_y = angle_y[y] - rendered_vertexes[nr].A.y;
+
+	rendered_pixels[xy].diff_bp_x = angle_x[x] - rendered_vertexes[nr].B.x;
+	diff_bp_y = angle_y[y] - rendered_vertexes[nr].B.y;
+
+	rendered_pixels[xy].slobe_ap = diff_ap_y / rendered_pixels[xy].diff_ap_x;
+	rendered_pixels[xy].slobe_bp = diff_bp_y / rendered_pixels[xy].diff_bp_x;
+
+
+
+}
+
+int func2(int xy, int nr) {
+
+
+	int temp = 0;
+
+	temp = (rendered_pixels[xy].diff_ap_x * rendered_vertexes[nr].diff_ab_x) >= 0;
+	if (!temp & (rendered_vertexes[nr].slobe_ab < rendered_pixels[xy].slobe_ap)) {
+		return 1;//continue;
+	}
+	if (temp & (rendered_vertexes[nr].slobe_ab > rendered_pixels[xy].slobe_ap)) {
+		return 1;//continue;
+	}
+
+	temp = (rendered_pixels[xy].diff_ap_x * rendered_vertexes[nr].diff_ac_x) >= 0;
+	if (!temp & (rendered_vertexes[nr].slobe_ac > rendered_pixels[xy].slobe_ap)) {
+		return 1;//continue;
+	}
+	if (temp & (rendered_vertexes[nr].slobe_ac < rendered_pixels[xy].slobe_ap)) {
+		return 1;//continue;
+	}
+
+
+
+
+
+
+	temp = (rendered_pixels[xy].diff_bp_x * rendered_vertexes[nr].diff_bc_x) > 0;
+	// if == 1, means one is different
+	if (!temp & (rendered_vertexes[nr].slobe_bc < rendered_pixels[xy].slobe_bp)) {
+		return 1;//continue;
+	}
+	if (temp & (rendered_vertexes[nr].slobe_bc > rendered_pixels[xy].slobe_bp)) {
+		return 1;//continue;
+	}
+
+	// if == 1, means one is different
+	temp = (rendered_pixels[xy].diff_bp_x * rendered_vertexes[nr].diff_ba_x) > 0;
+	if (!temp & (rendered_vertexes[nr].slobe_ba > rendered_pixels[xy].slobe_bp)) {
+		return 1;//continue;
+	}
+	if (temp & (rendered_vertexes[nr].slobe_ba < rendered_pixels[xy].slobe_bp)) {
+		return 1;//continue;
+	}
+
+	return 0;
+}
+
+
+
+void drieD_naar_tweeD(int vertex_nr) {
+
+	if (vertex_nr == 0) {
+		
+	}
+
+	float aangle1 = 0;
+	float aangle2 = 0;
+	float adistance2 = 0;
+
+	float bangle1 = 0;
+	float bangle2 = 0;
+	float bdistance2 = 0;
+
+	float cangle1 = 0;
+	float cangle2 = 0;
+	float cdistance2 = 0;
+
+	Coordinate Phit;
+	float Pdistance;
+
+	////////////
+	//vertexes[0].a.x = 10;
+	//vertexes[0].a.y = 10;
+	//vertexes[0].a.z = 10;
+	////////////
+
+
+
+
+	//Set all points to 2d field
+
+	float x_diff1;
+	float y_diff1;
+	float x_diff1_norm;
+	float y_diff1_norm;
+	float ret_angle1;
+
+	float x_diff2;
+	float y_diff2;
+	float x_diff2_norm;
+	float y_diff2_norm;
+	float ret_angle2;
+
+	float x_diff3;
+	float y_diff3;
+	float x_diff3_norm;
+	float y_diff3_norm;
+	float ret_angle3;
+
+
+	float _x_diff1;
+	float _y_diff1;
+	float _x_diff1_norm;
+	float _y_diff1_norm;
+	float _ret_angle1;
+
+	float _x_diff2;
+	float _y_diff2;
+	float _x_diff2_norm;
+	float _y_diff2_norm;
+	float _ret_angle2;
+
+	float _x_diff3;
+	float _y_diff3;
+	float _x_diff3_norm;
+	float _y_diff3_norm;
+	float _ret_angle3;
+
+
+	int switch_direction = 0;
+
+	calc_2d_point(vertexes[vertex_nr].a, player_coordinates, player_angle,
+		&adistance2, &aangle1, &aangle2);
+
+	calc_2d_point(vertexes[vertex_nr].b, player_coordinates, player_angle,
+		&bdistance2, &bangle1, &bangle2);
+
+	calc_2d_point(vertexes[vertex_nr].c, player_coordinates, player_angle,
+		&cdistance2, &cangle1, &cangle2);
+
+
+
+
+
+
+
+
+
+	x_diff1 = bangle1 - aangle1;
+	y_diff1 = bangle2 - aangle2;
+
+	_x_diff1 = cangle1 - aangle1;
+	_y_diff1 = cangle2 - aangle2;
+
+
+
+	//calc_normal_2d(x_diff1, y_diff1, &x_diff1_norm, &y_diff1_norm); // b
+	//calc_normal_2d(_x_diff1, _y_diff1, &_x_diff1_norm, &_y_diff1_norm); // c
+
+
+
+
+	float slobe_ab = y_diff1 / x_diff1;
+	float slobe_ac = _y_diff1 / _x_diff1;
+
+
+	if (((x_diff1 > 0) & (_x_diff1 > 0)) | ((x_diff1 < 0) & (_x_diff1 < 0))) { // iff both the same
+		if (slobe_ab > slobe_ac) {
+			switch_direction = 1;
+		}
+	}
+	else { /// iff differ
+		if (slobe_ab < slobe_ac) {
+			switch_direction = 1;
+		}
+	}
+
+
+	float slobe_bc = 0;
+	float slobe_ba = 0;
+
+
+	if (!switch_direction) {
+
+		x_diff2 = cangle1 - bangle1;
+		y_diff2 = cangle2 - bangle2;
+
+		_x_diff2 = aangle1 - bangle1;
+		_y_diff2 = aangle2 - bangle2;
+
+		//calc_normal_2d(x_diff2, y_diff2, &x_diff2_norm, &y_diff2_norm); // b
+		//calc_normal_2d(_x_diff2, _y_diff2, &_x_diff2_norm, &_y_diff2_norm); // c
+
+
+		slobe_bc = y_diff2 / x_diff2;
+		slobe_ba = _y_diff2 / _x_diff2;
+
+	}
+	else {
+
+
+		x_diff2 = bangle1 - cangle1;
+		y_diff2 = bangle2 - cangle2;
+
+		_x_diff2 = aangle1 - cangle1;
+		_y_diff2 = aangle2 - cangle2;
+
+		//calc_normal_2d(x_diff2, y_diff2, &x_diff2_norm, &y_diff2_norm); // b
+		//calc_normal_2d(_x_diff2, _y_diff2, &_x_diff2_norm, &_y_diff2_norm); // c
+
+		slobe_bc = y_diff2 / x_diff2;
+		slobe_ba = _y_diff2 / _x_diff2;
+
+	}
+
+
+
+
+	/*
+
+	x_diff1 = bangle1 - aangle1;
+	y_diff1 = bangle2 - aangle2;
+	ret_angle1 = atan2f(x_diff1, y_diff1);
+
+	x_diff2 = cangle1 - aangle1;
+	y_diff2 = cangle2 - aangle2;
+	ret_angle2 = atan2f(x_diff2, y_diff2);
+
+
+
+
+
+
+
+
+	float angle_diff = ret_angle1 - ret_angle2;
+
+	if (angle_diff < 0) { angle_diff += twoPI; }
+
+
+	if (angle_diff > PI) {
+		float switch_angle = ret_angle2;
+		ret_angle2 = ret_angle1;
+		ret_angle1 = switch_angle;
+
+
+
+
+
+		_x_diff1 = bangle1 - cangle1;
+		_y_diff1 = bangle2 - cangle2;
+		_ret_angle1 = atan2f(_x_diff1, _y_diff1);
+
+		_x_diff2 = aangle1 - cangle1;
+		_y_diff2 = aangle2 - cangle2;
+		_ret_angle2 = atan2f(_x_diff2, _y_diff2);
+
+		switch_direction = 1;
+	}
+	else {
+
+
+
+		_x_diff1 = cangle1 - bangle1;
+		_y_diff1 = cangle2 - bangle2;
+		_ret_angle1 = atan2f(_x_diff1, _y_diff1);
+
+		_x_diff2 = aangle1 - bangle1;
+		_y_diff2 = aangle2 - bangle2;
+		_ret_angle2 = atan2f(_x_diff2, _y_diff2);
+
+
+
+	}
+
+
+
+	if (ret_angle1 < ret_angle2) {
+
+		if (ret_angle1 < 0) { ret_angle1 += twoPI; }
+		if (ret_angle2 < 0) { ret_angle2 += twoPI; }
+
+	}
+
+	if (_ret_angle1 < _ret_angle2) {
+
+		if (_ret_angle1 < 0) { _ret_angle1 += twoPI; }
+		if (_ret_angle2 < 0) { _ret_angle2 += twoPI; }
+
+	}
+
+
+	*/
+
+
+
+	//printf("%f\n", aangle1);
+	//printf("%f\n", adistance1);
+	//printf("%f\n", aangle2);
+	//printf("%f\n", adistance2);
+
+	//printf("%f\n", bangle1);
+	//printf("%f\n", bdistance1);
+	//printf("%f\n", bangle2);
+	//printf("%f\n", bdistance2);
+
+	//printf("%f\n", cangle1);
+	//printf("%f\n", cdistance1);
+	//printf("%f\n", cangle2);
+	//printf("%f\n", cdistance2);
+
+
+
+
+
+
+
+
+	///
+	//Check_if_in_view();
+	// location and point angle
+	// 
+
+
+	//Hoek x as
+	//Hoek y as
+	//Afstand
+	//item nummer
+
+
+
+	//angle to pixel
+	//if (hoek1 < -pov || hoek1 > pov ||
+	//	hoek2 < -pov || hoek2 > pov) 
+	//{
+	//	continue;
+	//}
+
+
+
+	////int pixel_x = (screen_size_x / 2) + ((hoek1 / pov) * (screen_size_x / 2));
+	////int pixel_y = (screen_size_y / 2) + ((hoek2 / pov) * (screen_size_y / 2));
+
+
+
+
+	////pixels[pixel_x + (pixel_y * screen_size_x)].item = x;
+	////pixels[pixel_x + (pixel_y * screen_size_x)].y_value = distance2;
+
+
+
+
+	//printf("\n\n\n   ######## \n\n");
+
+
+	float angle_x = 0;
+	float angle_y = 0;
+
+
+
+
+
+	for (int y = 0; y < screen_size_y; y++) {
+		for (int x = 0; x < screen_size_x; x++) {
+
+			Coordinate temp_angle;
+
+			
+			angle_x = (((float)x / screen_size_x) - 0.5) * pov_x;
+			angle_y = (((float)y / screen_size_y) - 0.5) * pov_y;
+
+
+
+			float slobe_ap = 0;
+			float slobe_bp = 0;
+
+
+			if (!switch_direction) {
+
+				x_diff3 = angle_x - aangle1;
+				y_diff3 = angle_y - aangle2;
+
+				_x_diff3 = angle_x - bangle1;
+				_y_diff3 = angle_y - bangle2;
+
+				//calc_normal_2d(x_diff3, y_diff3, &x_diff3_norm, &y_diff3_norm);  //ap
+				//calc_normal_2d(_x_diff3, _y_diff3, &_x_diff3_norm, &_y_diff3_norm); //bp
+
+
+				slobe_ap = y_diff3 / x_diff3;
+				slobe_bp = _y_diff3 / _x_diff3;
+
+			}
+			else {
+
+				x_diff3 = angle_x - aangle1;
+				y_diff3 = angle_y - aangle2;
+
+				_x_diff3 = angle_x - cangle1;
+				_y_diff3 = angle_y - cangle2;
+
+				//calc_normal_2d(x_diff3, y_diff3, &x_diff3_norm, &y_diff3_norm); // ap
+				//calc_normal_2d(_x_diff3, _y_diff3, &_x_diff3_norm, &_y_diff3_norm); // bp
+
+
+				slobe_ap = y_diff3 / x_diff3;
+				slobe_bp = _y_diff3 / _x_diff3;
+
+			}
+
+
+
+
+
+
+
+
+			int temp = 0;
+
+			// if == 1, means one is different
+			temp = ((x_diff3 > 0) & (x_diff1 > 0)) | ((x_diff3 < 0) & (x_diff1 < 0));
+			if (!temp & (slobe_ab < slobe_ap)) {
+				continue;
+			}
+			if (temp & (slobe_ab > slobe_ap)) {
+				continue;
+			}
+			// if == 1, means one is different
+			temp = ((x_diff3 > 0) & (_x_diff1 > 0)) | ((x_diff3 < 0) & (_x_diff1 < 0));
+			if (!temp & (slobe_ac > slobe_ap)) {
+				continue;
+			}
+			if (temp & (slobe_ac < slobe_ap)) {
+				continue;
+			}
+
+
+
+
+
+			// if == 1, means one is different
+			temp = ((_x_diff3 > 0) & (x_diff2 > 0)) | ((_x_diff3 < 0) & (x_diff2 < 0));
+			if (!temp & (slobe_bc < slobe_bp)) {
+				continue;
+			}
+			if (temp & (slobe_bc > slobe_bp)) {
+				continue;
+			}
+			// if == 1, means one is different
+			temp = ((_x_diff3 > 0) & (_x_diff2 > 0)) | ((_x_diff3 < 0) & (_x_diff2 < 0));
+			if (!temp & (slobe_ba > slobe_bp)) {
+				continue;
+			}
+			if (temp & (slobe_ba < slobe_bp)) {
+				continue;
+			}
+
+
+
+
+
+
+			/*
+			float slobe_ab = y_diff1_norm / x_diff1_norm;
+			float slobe_ac = _y_diff1_norm / _x_diff1_norm;
+
+
+			if (x_diff1_norm > 0 & _x_diff1_norm > 0 | x_diff1_norm < 0 & _x_diff1_norm < 0) { // iff both the same
+				if (slobe_ab > slobe_ac) {
+					switch_direction = 1;
+				}
+			}
+			else { /// iff differ
+				if (slobe_ab < slobe_ac) {
+					switch_direction = 1;
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			angle_x = (((float)x / screen_size_x) - 0.5) * pov_x;
+			angle_y = (((float)y / screen_size_y) - 0.5) * pov_y;
+
+
+			if (switch_direction) {
+				x_diff3 = angle_x - aangle1;
+				y_diff3 = angle_y - aangle2;
+				ret_angle3 = atan2f(x_diff3, y_diff3);
+
+				_x_diff3 = angle_x - cangle1;
+				_y_diff3 = angle_y - cangle2;
+				_ret_angle3 = atan2f(_x_diff3, _y_diff3);
+			}
+			else
+			{
+				x_diff3 = angle_x - aangle1;
+				y_diff3 = angle_y - aangle2;
+				ret_angle3 = atan2f(x_diff3, y_diff3);
+
+				_x_diff3 = angle_x - bangle1;
+				_y_diff3 = angle_y - bangle2;
+				_ret_angle3 = atan2f(_x_diff3, _y_diff3);
+			}
+
+
+
+			if ((ret_angle1 > PI | ret_angle2 > PI) & ret_angle3 < 0) {
+
+				ret_angle3 += twoPI;
+
+			}
+
+			if ((_ret_angle1 > PI | _ret_angle2 > PI) & _ret_angle3 < 0) {
+
+				_ret_angle3 += twoPI;
+
+			}
+
+
+
+
+			if (!(ret_angle1 > ret_angle3 & ret_angle3 > ret_angle2)) {
+				continue;
+			}
+
+
+			if (!(_ret_angle1 > _ret_angle3 & _ret_angle3 > _ret_angle2)) {
+				continue;
+			}
+
+
+			*/
+
+
+
+
+
+			angle_x += player_angle;
+
+
+			if (switch_direction)
+			{
+
+				if (calc_plane(vertexes[vertex_nr].a, vertexes[vertex_nr].c, vertexes[vertex_nr].b, vertexes[vertex_nr].Norm,
+					player_coordinates, angle_x, angle_y, &Phit, &Pdistance)) {
+					continue;
+				}
+
+			}
+			else
+			{
+				if (calc_plane(vertexes[vertex_nr].a, vertexes[vertex_nr].b, vertexes[vertex_nr].c, vertexes[vertex_nr].Norm,
+					player_coordinates, angle_x, angle_y, &Phit, &Pdistance)) {
+					continue;
+				}
+
+			}
+
+
+
+			if (Pdistance > pixels_Buffer[x + (y * screen_size_x)].y_value
+				& pixels_Buffer[x + (y * screen_size_x)].item != 0)
+			{
+				continue;
+			}
+
+			pixels_Buffer[x + (y * screen_size_x)].item = vertex_nr + 1;
+			pixels_Buffer[x + (y * screen_size_x)].y_value = Pdistance;
+
+
+
+		}
+	}
+
+
+	return 0;
+
+}
+
+
+
+
+//float ray_angle1 = player_angle - 
+
+/// <summary>
+/// Set Graphics
+/// </summary>
+/// <param name="buffer"></param>
+/// <param name="max_x"></param>
+/// <param name="max_y"></param>
+void set_screen_buffer(char* buffer, int max_x, int max_y) {
+	float distance = 0;
+	for (int x = 0; x < screen_size_x & x < max_x; x++) {
+		for (int y = 0; y < screen_size_y & y < max_y; y++) {
+
+			if (pixels_Buffer[x + (((screen_size_y - 1) - y) * screen_size_x)].item == 0) {
+				continue;
+			}
+
+			distance = pixels_Buffer[x + (((screen_size_y - 1) - y) * screen_size_x)].y_value;
+			if (distance > sizeof(scale) - 1) {
+				distance = sizeof(scale) - 2;
+			}
+			*(buffer + x + (y * screen_size_x)) = scale[(int)distance];
+		}
+	}
+
+	return;
+}
+
+
+void check_input() {
+
+	float radiant;
+	float new_x = player_coordinates.x;
+	float new_y = player_coordinates.y;
+
+	float move_factor = 2;
+
+	char c = 0;
+
+	while (_kbhit())
+	{
+		c = _getch();
+	}
+
+	radiant = player_angle;
+
+
+	if (c > 0) {
+		switch (c) {
+		case 119:
+			new_x += sin(radiant) * move_factor;
+			new_y += cos(radiant) * move_factor;
+			break;
+		case 115:
+			new_x -= sin(radiant) * move_factor;
+			new_y -= cos(radiant) * move_factor;
+			break;
+		case 100:
+			new_x += sin(radiant + PI / 2) * move_factor;
+			new_y += cos(radiant + PI / 2) * move_factor;
+			break;
+		case 97:
+			new_x += sin(radiant - PI / 2) * move_factor;
+			new_y += cos(radiant - PI / 2) * move_factor;
+			break;
+		case 75:
+			player_angle -= PI / 10;
+
+			if (player_angle < -PI) {
+				player_angle += twoPI;
+			}
+			break;
+		case 77:
+			player_angle += PI / 10;
+			if (player_angle > PI) {
+				player_angle -= twoPI;
+			}
+			break;
+		default:
+			;;
+		}
+	}
+
+	player_coordinates.x = new_x;
+	player_coordinates.y = new_y;
+
+	return;
+}
